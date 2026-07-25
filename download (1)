@@ -1,0 +1,15 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { AppShell } from "@/components/app/AppShell";
+import { ComingSoon } from "@/components/app/ComingSoon";
+
+export const Route = createFileRoute("/_authenticated/portfolio")({
+  component: () => (
+    <AppShell>
+      <ComingSoon
+        title="Portfolio"
+        body="Detailed holdings, allocations, P&L and transaction history. Coming in Phase 2."
+      />
+    </AppShell>
+  ),
+  head: () => ({ meta: [{ title: "Portfolio — FOVOZ" }] }),
+});

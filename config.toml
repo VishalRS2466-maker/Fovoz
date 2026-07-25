@@ -1,0 +1,181 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { ArrowUpRight, Sparkles, TrendingUp, PieChart, Target } from "lucide-react";
+import { AppShell } from "@/components/app/AppShell";
+
+export const Route = createFileRoute("/_authenticated/dashboard")({
+  component: DashboardPage,
+  head: () => ({
+    meta: [
+      { title: "Dashboard — FOVOZ" },
+      { name: "description", content: "Your FOVOZ portfolio overview and market intelligence at a glance." },
+    ],
+  }),
+});
+
+function DashboardPage() {
+  return (
+    <AppShell>
+      <DemoBanner />
+
+      <div className="mt-6 grid gap-4 md:grid-cols-4">
+        <MetricCard label="Portfolio value" value="₹4,82,650" change="+2.14% today" positive />
+        <MetricCard label="Invested" value="₹4,10,000" change="Across 12 holdings" />
+        <MetricCard label="Total returns" value="+₹72,650" change="+17.7% overall" positive />
+        <MetricCard label="Goal progress" value="42%" change="Wealth Creation · 2032" />
+      </div>
+
+      <div className="mt-6 grid gap-4 lg:grid-cols-3">
+        <div className="rounded-2xl border border-border bg-card p-5 lg:col-span-2">
+          <div className="flex items-center justify-between">
+            <h2 className="font-display text-lg">Portfolio performance</h2>
+            <span className="text-xs text-muted-foreground">1M · Simulated</span>
+          </div>
+          <div className="mt-4 h-56">
+            <PerfChart />
+          </div>
+        </div>
+
+        <div className="rounded-2xl border border-border bg-card p-5">
+          <div className="flex items-center gap-2">
+            <Sparkles className="h-4 w-4 text-gold" />
+            <h2 className="font-display text-lg">For you</h2>
+          </div>
+          <ul className="mt-4 space-y-3 text-sm">
+            <Insight
+              tone="warn"
+              title="Portfolio is IT-heavy"
+              body="46% of your holdings sit in IT. Consider diversifying into other sectors."
+            />
+            <Insight
+              tone="ok"
+              title="On track for goal"
+              body="You've reached 42% of your 'Wealth Creation' goal — ahead of schedule."
+            />
+            <Insight
+              tone="info"
+              title="Volatility above profile"
+              body="Your portfolio is 18% more volatile than your stated risk preference."
+            />
+          </ul>
+        </div>
+      </div>
+
+      <div className="mt-6 grid gap-4 md:grid-cols-3">
+        <QuickCard icon={TrendingUp} title="Explore investments" body="Browse stocks, mutual funds, ETFs and bonds." />
+        <QuickCard icon={PieChart} title="Portfolio detail" body="Holdings, allocations, and transaction history." />
+        <QuickCard icon={Target} title="Set a goal" body="Emergency fund, home, retirement — you choose." />
+      </div>
+
+      <p className="mt-6 text-xs text-muted-foreground">
+        All values shown are simulated demo data. AI-generated forecasts are probabilistic estimates,
+        not guaranteed predictions or financial advice.
+      </p>
+    </AppShell>
+  );
+}
+
+function DemoBanner() {
+  return (
+    <div className="flex items-start gap-3 rounded-xl border border-gold/40 bg-gold/10 px-4 py-3 text-sm">
+      <Sparkles className="mt-0.5 h-4 w-4 text-gold" />
+      <div>
+        <p className="font-medium">You're in FOVOZ demo mode.</p>
+        <p className="text-muted-foreground">
+          Investments, portfolio and market data shown are simulated. No real money moves.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function MetricCard({
+  label,
+  value,
+  change,
+  positive,
+}: {
+  label: string;
+  value: string;
+  change: string;
+  positive?: boolean;
+}) {
+  return (
+    <div className="rounded-2xl border border-border bg-card p-5">
+      <p className="text-xs uppercase tracking-wider text-muted-foreground">{label}</p>
+      <p className="mt-1.5 font-display text-2xl font-semibold">{value}</p>
+      <p className={"mt-1 text-xs " + (positive ? "text-success" : "text-muted-foreground")}>
+        {positive && <ArrowUpRight className="mr-0.5 inline h-3 w-3" />}
+        {change}
+      </p>
+    </div>
+  );
+}
+
+function QuickCard({
+  icon: Icon,
+  title,
+  body,
+}: {
+  icon: React.ComponentType<{ className?: string }>;
+  title: string;
+  body: string;
+}) {
+  return (
+    <div className="rounded-2xl border border-border bg-card p-5">
+      <div className="grid h-10 w-10 place-items-center rounded-lg bg-primary/10 text-primary">
+        <Icon className="h-5 w-5" />
+      </div>
+      <h3 className="mt-3 font-semibold">{title}</h3>
+      <p className="mt-1 text-sm text-muted-foreground">{body}</p>
+    </div>
+  );
+}
+
+function Insight({
+  tone,
+  title,
+  body,
+}: {
+  tone: "ok" | "warn" | "info";
+  title: string;
+  body: string;
+}) {
+  const dot =
+    tone === "ok" ? "bg-success" : tone === "warn" ? "bg-gold" : "bg-primary";
+  return (
+    <li className="flex gap-3">
+      <span className={"mt-1.5 h-2 w-2 shrink-0 rounded-full " + dot} />
+      <div className="min-w-0">
+        <p className="font-medium">{title}</p>
+        <p className="text-muted-foreground">{body}</p>
+      </div>
+    </li>
+  );
+}
+
+function PerfChart() {
+  const pts = [
+    100, 102, 101, 104, 106, 105, 108, 111, 110, 113, 116, 115, 118, 122, 125,
+    124, 126, 129, 132, 130, 133, 137, 141, 139, 142, 146, 149, 152, 154, 158,
+  ];
+  const w = 640;
+  const h = 220;
+  const min = Math.min(...pts);
+  const max = Math.max(...pts);
+  const step = w / (pts.length - 1);
+  const d = pts
+    .map((p, i) => `${i === 0 ? "M" : "L"} ${i * step} ${h - ((p - min) / (max - min)) * (h - 20) - 10}`)
+    .join(" ");
+  return (
+    <svg viewBox={`0 0 ${w} ${h}`} className="h-full w-full">
+      <defs>
+        <linearGradient id="perf" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0%" stopColor="var(--primary)" stopOpacity="0.28" />
+          <stop offset="100%" stopColor="var(--primary)" stopOpacity="0" />
+        </linearGradient>
+      </defs>
+      <path d={`${d} L ${w} ${h} L 0 ${h} Z`} fill="url(#perf)" />
+      <path d={d} fill="none" stroke="var(--primary)" strokeWidth="2.4" strokeLinecap="round" />
+    </svg>
+  );
+}

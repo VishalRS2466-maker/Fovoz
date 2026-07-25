@@ -1,0 +1,504 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+import {
+  ArrowUpRight,
+  LineChart,
+  Sparkles,
+  TrendingUp,
+  GraduationCap,
+  Bell,
+  Wallet,
+  BarChart3,
+  ShieldCheck,
+  CheckCircle2,
+  Quote,
+} from "lucide-react";
+import { Logo } from "@/components/brand/Logo";
+import { Button } from "@/components/ui/button";
+
+export const Route = createFileRoute("/")({
+  component: LandingPage,
+});
+
+function LandingPage() {
+  return (
+    <div className="min-h-screen bg-background text-foreground">
+      <SiteHeader />
+      <Hero />
+      <StatsBand />
+      <Pillars />
+      <Features />
+      <Testimonials />
+      <CTA />
+      <SiteFooter />
+    </div>
+  );
+}
+
+function SiteHeader() {
+  return (
+    <header className="sticky top-0 z-30 border-b border-border/60 bg-background/80 backdrop-blur">
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
+        <Link to="/" className="shrink-0">
+          <Logo size="md" />
+        </Link>
+        <nav className="hidden items-center gap-7 text-sm text-muted-foreground md:flex">
+          <a href="#pillars" className="hover:text-foreground">Product</a>
+          <a href="#features" className="hover:text-foreground">Features</a>
+          <a href="#pillars" className="hover:text-foreground">Learn</a>
+        </nav>
+        <div className="flex items-center gap-2">
+          <Button asChild variant="ghost" size="sm">
+            <Link to="/auth">Sign in</Link>
+          </Button>
+          <Button asChild size="sm">
+            <Link to="/auth" search={{ mode: "signup" }}>
+              Get started
+            </Link>
+          </Button>
+        </div>
+      </div>
+    </header>
+  );
+}
+
+function Hero() {
+  return (
+    <section className="bg-hero relative overflow-hidden">
+      {/* decorative background */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className="bg-grid-soft absolute inset-0 opacity-70" />
+        <div className="bg-orb-pink absolute -left-24 top-10 h-72 w-72 rounded-full opacity-60 blur-2xl" />
+        <div className="bg-orb-gold absolute right-[-4rem] top-40 h-80 w-80 rounded-full opacity-40 blur-3xl" />
+        <div className="bg-orb-primary absolute bottom-[-6rem] left-1/3 h-72 w-72 rounded-full opacity-30 blur-3xl" />
+      </div>
+      <div className="relative mx-auto grid max-w-6xl gap-12 px-4 py-16 sm:px-6 md:py-24 lg:grid-cols-[1.05fr_1fr] lg:items-center">
+        <div>
+          <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card/70 px-3 py-1 text-xs font-medium text-muted-foreground">
+            <Sparkles className="h-3.5 w-3.5 text-gold" />
+            Building Nation Together · Built for Indian investors
+          </span>
+          <h1 className="mt-6 font-display text-4xl leading-[1.05] tracking-tight text-foreground sm:text-5xl md:text-6xl">
+            Building Nation{" "}
+            <span className="relative inline-block text-primary">
+              Together.
+              <svg
+                className="absolute -bottom-2 left-0 w-full text-gold/60"
+                viewBox="0 0 200 12"
+                fill="none"
+                aria-hidden
+              >
+                <path
+                  d="M2 8 Q 50 2 100 6 T 198 5"
+                  stroke="currentColor"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                />
+              </svg>
+            </span>
+          </h1>
+          <p className="mt-5 max-w-xl text-lg text-muted-foreground">
+            When every citizen invests, the nation grows — and so does every life in it.
+          </p>
+          <p className="mt-2 max-w-xl text-sm text-muted-foreground/80">
+            Investing, portfolio tracking and AI-powered market intelligence — with an optional tutor whenever you need it.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Button asChild size="lg">
+              <Link to="/auth" search={{ mode: "signup" }}>
+                Start investing
+                <ArrowUpRight className="ml-1 h-4 w-4" />
+              </Link>
+            </Button>
+            <Button asChild size="lg" variant="outline" className="border-border bg-card/60">
+              <Link to="/auth">See market intelligence</Link>
+            </Button>
+          </div>
+          <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-xs text-muted-foreground">
+            {[
+              "Simulated — no real money at risk",
+              "AI insights explained in plain English",
+              "Built for Indian markets",
+            ].map((t) => (
+              <li key={t} className="inline-flex items-center gap-1.5">
+                <CheckCircle2 className="h-3.5 w-3.5 text-primary" />
+                {t}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <DashboardPreview />
+      </div>
+    </section>
+  );
+}
+
+function DashboardPreview() {
+  return (
+    <div className="relative">
+      <div className="absolute -inset-6 rounded-[2rem] bg-gradient-to-br from-primary/10 via-transparent to-gold/20 blur-2xl" />
+      {/* floating badge */}
+      <div className="animate-float absolute -left-4 top-8 z-10 hidden rounded-xl border border-border bg-card p-3 shadow-soft sm:block">
+        <div className="flex items-center gap-2">
+          <div className="grid h-8 w-8 place-items-center rounded-lg bg-gold/20 text-gold">
+            <Sparkles className="h-4 w-4" />
+          </div>
+          <div>
+            <p className="text-[10px] uppercase tracking-wider text-muted-foreground">AI insight</p>
+            <p className="text-xs font-semibold">3 new signals</p>
+          </div>
+        </div>
+      </div>
+      <div className="animate-float absolute -right-3 bottom-10 z-10 hidden rounded-xl border border-border bg-card p-3 shadow-soft sm:block" style={{ animationDelay: "1.5s" }}>
+        <div className="flex items-center gap-2">
+          <div className="grid h-8 w-8 place-items-center rounded-lg bg-success/15 text-success">
+            <TrendingUp className="h-4 w-4" />
+          </div>
+          <div>
+            <p className="text-[10px] uppercase tracking-wider text-muted-foreground">Goal</p>
+            <p className="text-xs font-semibold">On track · 42%</p>
+          </div>
+        </div>
+      </div>
+      <div className="shadow-elegant relative rounded-2xl border border-border bg-card p-5">
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-xs uppercase tracking-wider text-muted-foreground">Portfolio value</p>
+            <p className="mt-1 font-display text-3xl font-semibold">₹4,82,650</p>
+          </div>
+          <div className="rounded-full bg-success/10 px-2.5 py-1 text-xs font-medium text-success">
+            +2.14% today
+          </div>
+        </div>
+
+        <div className="mt-5 h-28 w-full">
+          <MiniSpark />
+        </div>
+
+        <div className="mt-4 grid grid-cols-3 gap-2">
+          {[
+            { label: "Invested", value: "₹4,10,000" },
+            { label: "Returns", value: "+₹72,650" },
+            { label: "Goal", value: "42%" },
+          ].map((s) => (
+            <div key={s.label} className="rounded-lg bg-muted px-3 py-2">
+              <p className="text-[10px] uppercase tracking-wider text-muted-foreground">{s.label}</p>
+              <p className="mt-0.5 text-sm font-semibold">{s.value}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-4 rounded-xl border border-border bg-background/60 p-3">
+          <div className="flex items-center gap-2">
+            <span className="rounded bg-success/15 px-1.5 py-0.5 text-[10px] font-semibold text-success">
+              BULLISH
+            </span>
+            <span className="text-xs text-muted-foreground">Confidence 72%</span>
+          </div>
+          <p className="mt-1.5 text-sm font-medium">NIFTY IT · potential upward momentum</p>
+          <p className="mt-1 text-xs text-muted-foreground">
+            Strong quarterly earnings and positive global tech sentiment.
+          </p>
+        </div>
+        <p className="mt-3 text-[10px] leading-relaxed text-muted-foreground">
+          AI-generated forecasts are probabilistic estimates, not guaranteed predictions or financial advice.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function MiniSpark() {
+  const pts = [8, 14, 11, 22, 18, 28, 24, 34, 30, 42, 38, 52, 48, 60];
+  const w = 320;
+  const h = 100;
+  const max = 64;
+  const step = w / (pts.length - 1);
+  const d = pts
+    .map((p, i) => `${i === 0 ? "M" : "L"} ${i * step} ${h - (p / max) * h}`)
+    .join(" ");
+  return (
+    <svg viewBox={`0 0 ${w} ${h}`} className="h-full w-full">
+      <defs>
+        <linearGradient id="spark" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0%" stopColor="var(--primary)" stopOpacity="0.35" />
+          <stop offset="100%" stopColor="var(--primary)" stopOpacity="0" />
+        </linearGradient>
+      </defs>
+      <path d={`${d} L ${w} ${h} L 0 ${h} Z`} fill="url(#spark)" />
+      <path d={d} fill="none" stroke="var(--primary)" strokeWidth="2.2" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+const pillars = [
+  {
+    icon: TrendingUp,
+    title: "Invest",
+    desc: "Explore stocks, mutual funds, ETFs, bonds and index funds. Simulated portfolio, real learning.",
+  },
+  {
+    icon: LineChart,
+    title: "Track",
+    desc: "Live portfolio value, allocations, and performance over any timeframe.",
+  },
+  {
+    icon: Sparkles,
+    title: "Understand",
+    desc: "AI trend outlooks with confidence levels and plain-language reasons for every move.",
+  },
+  {
+    icon: GraduationCap,
+    title: "Learn (optional)",
+    desc: "An always-optional AI tutor and lesson library — never blocks investing.",
+  },
+];
+
+function Pillars() {
+  return (
+    <section id="pillars" className="border-t border-border/60 py-20">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="max-w-2xl">
+          <p className="text-sm font-semibold uppercase tracking-wider text-primary">The FOVOZ way</p>
+          <h2 className="mt-2 font-display text-3xl tracking-tight sm:text-4xl">
+            Learn. Invest. Track. Understand.
+          </h2>
+          <p className="mt-3 text-muted-foreground">
+            One calm surface for building wealth — with an intelligence layer that explains
+            <em> why</em> the market moved, not just <em>that</em> it moved.
+          </p>
+        </div>
+
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {pillars.map((p, i) => (
+            <div
+              key={p.title}
+              className="group relative overflow-hidden rounded-2xl border border-border bg-card p-5 transition-all hover:-translate-y-0.5 hover:shadow-elegant"
+            >
+              <div className="absolute right-3 top-3 font-display text-xs text-muted-foreground/50">
+                0{i + 1}
+              </div>
+              <div className="grid h-11 w-11 place-items-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/10">
+                <p.icon className="h-5 w-5" />
+              </div>
+              <h3 className="mt-4 text-lg font-semibold">{p.title}</h3>
+              <p className="mt-1.5 text-sm text-muted-foreground">{p.desc}</p>
+              <div className="mt-4 h-px w-8 bg-gradient-to-r from-gold to-transparent transition-all group-hover:w-16" />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const features = [
+  {
+    icon: BarChart3,
+    title: "Market Intelligence",
+    desc: "AI-powered trend outlooks with confidence levels and plain-language reasoning for every signal.",
+  },
+  {
+    icon: Wallet,
+    title: "Simulated Investing",
+    desc: "Practice with stocks, mutual funds, ETFs and bonds — real learning, zero real-money risk.",
+  },
+  {
+    icon: LineChart,
+    title: "Portfolio Tracking",
+    desc: "Live value, allocations, returns and goal progress across every timeframe.",
+  },
+  {
+    icon: Sparkles,
+    title: "AI Tutor (optional)",
+    desc: "Ask any finance question, revisit past conversations, and continue where you left off.",
+  },
+  {
+    icon: TrendingUp,
+    title: "Financial Goals",
+    desc: "Set targets, break them into SIPs, and watch progress compound month over month.",
+  },
+  {
+    icon: Bell,
+    title: "Smart Alerts",
+    desc: "Price moves, earnings and portfolio-impacting news — surfaced only when they matter.",
+  },
+];
+
+function Features() {
+  return (
+    <section id="features" className="border-t border-border/60 bg-secondary/40 py-16 sm:py-20">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="max-w-2xl">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">Features</p>
+          <h2 className="mt-3 font-display text-[26px] leading-[1.15] tracking-tight sm:text-4xl sm:leading-[1.1]">
+            Everything you need in one calm surface.
+          </h2>
+          <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground sm:text-base">
+            A focused set of tools for investing, tracking, learning and growing — without noise.
+          </p>
+        </div>
+
+        <div className="mt-10 grid gap-3 sm:mt-12 sm:gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {features.map((f) => (
+            <div
+              key={f.title}
+              className="group relative overflow-hidden rounded-2xl border border-border/70 bg-card p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-elegant sm:p-6"
+            >
+              <div className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-primary/5 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100" />
+              <div className="relative grid h-10 w-10 place-items-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/10 transition-all duration-300 group-hover:scale-105 group-hover:bg-primary group-hover:text-primary-foreground group-hover:ring-primary/40">
+                <f.icon className="h-[18px] w-[18px]" strokeWidth={1.75} />
+              </div>
+              <h3 className="relative mt-5 text-[15px] font-semibold leading-tight tracking-tight sm:text-base">
+                {f.title}
+              </h3>
+              <p className="relative mt-2 text-[13.5px] leading-[1.55] text-muted-foreground sm:text-sm">
+                {f.desc}
+              </p>
+              <div className="relative mt-5 h-px w-8 bg-gradient-to-r from-gold to-transparent transition-all duration-300 group-hover:w-20" />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function SiteFooter() {
+  return (
+    <footer className="border-t border-border/60 py-8">
+      <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-3 px-4 text-sm text-muted-foreground sm:flex-row sm:items-center sm:px-6">
+        <Logo size="sm" />
+        <p>© {new Date().getFullYear()} FOVOZ · Demo prototype · Not financial advice.</p>
+      </div>
+    </footer>
+  );
+}
+
+const stats = [
+  { value: "50+", label: "Instruments to explore" },
+  { value: "AI", label: "Powered market insights" },
+  { value: "₹0", label: "Real money at risk" },
+  { value: "24/7", label: "Optional AI tutor" },
+];
+
+function StatsBand() {
+  return (
+    <section className="border-y border-border/60 bg-card/60">
+      <div className="mx-auto grid max-w-6xl grid-cols-2 gap-6 px-4 py-10 sm:px-6 md:grid-cols-4">
+        {stats.map((s) => (
+          <div key={s.label} className="text-center md:text-left">
+            <p className="font-display text-3xl font-semibold text-primary sm:text-4xl">
+              {s.value}
+            </p>
+            <p className="mt-1 text-xs uppercase tracking-wider text-muted-foreground">
+              {s.label}
+            </p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+const testimonials = [
+  {
+    quote:
+      "Finally an app that explains the 'why' behind market moves. My confidence has grown just by reading the daily insights.",
+    name: "Ananya S.",
+    role: "First-time investor, Bengaluru",
+  },
+  {
+    quote:
+      "The simulated portfolio gave me the space to learn without fear. I moved to real investing after six months — with a plan.",
+    name: "Rohit M.",
+    role: "Software engineer, Pune",
+  },
+  {
+    quote:
+      "The AI tutor answers what my broker won't. Calm, clear, and always available when I need it.",
+    name: "Priya K.",
+    role: "Teacher, Chennai",
+  },
+];
+
+function Testimonials() {
+  return (
+    <section className="border-t border-border/60 py-20">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="max-w-2xl">
+          <p className="text-sm font-semibold uppercase tracking-wider text-primary">
+            Voices
+          </p>
+          <h2 className="mt-2 font-display text-3xl tracking-tight sm:text-4xl">
+            Built with citizens, for citizens.
+          </h2>
+          <p className="mt-3 text-muted-foreground">
+            Early users tell us FOVOZ made investing feel less intimidating and more intentional.
+          </p>
+        </div>
+        <div className="mt-10 grid gap-4 md:grid-cols-3">
+          {testimonials.map((t) => (
+            <figure
+              key={t.name}
+              className="relative rounded-2xl border border-border bg-card p-6 transition-shadow hover:shadow-soft"
+            >
+              <Quote className="h-6 w-6 text-gold/70" />
+              <blockquote className="mt-3 text-sm leading-relaxed text-foreground/90">
+                {t.quote}
+              </blockquote>
+              <figcaption className="mt-5 flex items-center gap-3 border-t border-border/60 pt-4">
+                <div className="grid h-9 w-9 place-items-center rounded-full bg-primary/10 font-semibold text-primary">
+                  {t.name[0]}
+                </div>
+                <div>
+                  <p className="text-sm font-semibold">{t.name}</p>
+                  <p className="text-xs text-muted-foreground">{t.role}</p>
+                </div>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function CTA() {
+  return (
+    <section className="relative overflow-hidden border-t border-border/60 py-20">
+      <div className="pointer-events-none absolute inset-0">
+        <div className="bg-orb-primary absolute -left-20 top-10 h-72 w-72 rounded-full opacity-30 blur-3xl" />
+        <div className="bg-orb-gold absolute -right-10 bottom-0 h-72 w-72 rounded-full opacity-30 blur-3xl" />
+      </div>
+      <div className="relative mx-auto max-w-4xl px-4 text-center sm:px-6">
+        <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card/80 px-3 py-1 text-xs font-medium text-muted-foreground">
+          <ShieldCheck className="h-3.5 w-3.5 text-primary" />
+          Simulated · Educational · No real money at risk
+        </div>
+        <h2 className="mt-5 font-display text-3xl tracking-tight sm:text-5xl">
+          Start your investing journey.
+          <br />
+          <span className="text-primary">The nation grows with you.</span>
+        </h2>
+        <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
+          Create a free account, open your simulated portfolio, and see the market through
+          a calmer, clearer lens.
+        </p>
+        <div className="mt-8 flex flex-wrap justify-center gap-3">
+          <Button asChild size="lg">
+            <Link to="/auth" search={{ mode: "signup" }}>
+              Create free account
+              <ArrowUpRight className="ml-1 h-4 w-4" />
+            </Link>
+          </Button>
+          <Button asChild size="lg" variant="outline" className="border-border bg-card/60">
+            <Link to="/auth">Sign in</Link>
+          </Button>
+        </div>
+        <p className="mt-6 text-xs text-muted-foreground">
+          FOVOZ is an educational simulator. Nothing here is financial advice or a guarantee of returns.
+        </p>
+      </div>
+    </section>
+  );
+}

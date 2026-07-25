@@ -1,0 +1,15 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { AppShell } from "@/components/app/AppShell";
+import { ComingSoon } from "@/components/app/ComingSoon";
+
+export const Route = createFileRoute("/_authenticated/market")({
+  component: () => (
+    <AppShell>
+      <ComingSoon
+        title="Market Intelligence"
+        body="Live index ticker, AI trend outlooks with confidence levels, and plain-language 'why this moved' explanations. Building in Phase 2."
+      />
+    </AppShell>
+  ),
+  head: () => ({ meta: [{ title: "Market Intelligence — FOVOZ" }] }),
+});
